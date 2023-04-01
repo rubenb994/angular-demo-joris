@@ -1,18 +1,4 @@
 <app-navbar></app-navbar>
 <div class="px-5 mt-3">
-  <button (click)="onClickLog()">Log</button>
-  <button (click)="onClickSetToRuben()">Set to Ruben</button>
-
-  <input [(ngModel)]="name" placeholder="Enter your name please" />
-
-  <span> Entered name: {{ name }} </span>
-  <!-- 
-  <ng-container *ngIf="!loadingFruits; else loading">
-    <div *ngFor="let fruit of fruits" class="p-3 fruit-element">
-      {{ fruit }}
-    </div>
-  </ng-container>
-  <ng-template #loading>
-    <p>Please wait while loading fruits</p>
-  </ng-template> -->
+  <router-outlet></router-outlet>
 </div>
