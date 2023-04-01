@@ -1,9 +1,14 @@
 <button (click)="onClickGetNextPage()">Get next page</button>
 
+<h2>Pokemons</h2>
 <ul class="pokemons-list">
   <ng-container *ngFor="let pokemon of pokemons">
-    <li (click)="onClickGetPokemonDetails(pokemon.name)">
-      {{ pokemon.name }}
+    <li
+      [class.selected-pokemon]="pokemon.name === selectedPokemonName"
+      (click)="onClickGetPokemonDetails(pokemon.name)"
+      class="p-1"
+    >
+      {{ pokemon.name | titlecase }}
     </li>
   </ng-container>
 </ul>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map } from 'rxjs';
 import { Pokemon, PokemonApiResult } from 'src/app/models/pokemon-api-result';
 import { PokemonDetails } from 'src/app/models/pokemon-details';
 import { PokemonService } from 'src/app/services/pokemon.service';
@@ -12,17 +12,30 @@ import { PokemonService } from 'src/app/services/pokemon.service';
 export class PokemonComponent implements OnInit {
   pokemons: Pokemon[] = [];
   pokemonDetails: PokemonDetails;
+  selectedPokemonName: string;
 
   private apiResult: PokemonApiResult;
   constructor(private pokemonService: PokemonService) {}
 
   ngOnInit(): void {
-    this.pokemonService.getAll('https://pokeapi.co/api/v2/pokemon/').subscribe({
-      next: (apiResult) => {
-        this.apiResult = apiResult;
-        this.pokemons = apiResult.results;
-      },
-    });
+    this.pokemonService
+      .getAll('https://pokeapi.co/api/v2/pokemon/')
+      .pipe(
+        map((apiResult) => {
+          for (let index = 0; index < apiResult.results.length; index++) {
+            apiResult.results[
+              index
+            ].name = `Joris - ${apiResult.results[index].name}`;
+          }
+          return apiResult;
+        })
+      )
+      .subscribe({
+        next: (apiResult) => {
+          this.apiResult = apiResult;
+          this.pokemons = apiResult.results;
+        },
+      });
   }
 
   onClickGetNextPage(): void {
@@ -35,6 +48,7 @@ export class PokemonComponent implements OnInit {
   }
 
   onClickGetPokemonDetails(pokemonName: string): void {
+    this.selectedPokemonName = pokemonName;
     this.pokemonService.getByName(pokemonName).subscribe({
       next: (apiResults) => {
         this.pokemonDetails = apiResults;
