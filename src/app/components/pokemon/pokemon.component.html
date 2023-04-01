@@ -1,19 +1,25 @@
 <button (click)="onClickGetNextPage()">Get next page</button>
 
 <h2>Pokemons</h2>
-<ul class="pokemons-list">
-  <ng-container *ngFor="let pokemon of pokemons">
-    <li
-      [class.selected-pokemon]="pokemon.name === selectedPokemonName"
-      (click)="onClickGetPokemonDetails(pokemon.name)"
-      class="p-1"
-    >
-      {{ pokemon.name | titlecase }}
-    </li>
-  </ng-container>
-</ul>
 
-<app-pokemon-details
-  [pokemonDetails]="pokemonDetails"
-  (pokemonMoveClicked)="onPokemonMoveClicked($event)"
-></app-pokemon-details>
+<ng-container *ngIf="!loadingPokemons; else loading">
+  <ul class="pokemons-list">
+    <ng-container *ngFor="let pokemon of pokemons">
+      <li
+        [class.selected-pokemon]="pokemon.name === selectedPokemonName"
+        (click)="onClickGetPokemonDetails(pokemon.name)"
+        class="p-1"
+      >
+        {{ pokemon.name | titlecase }}
+      </li>
+    </ng-container>
+  </ul>
+
+  <app-pokemon-details
+    [pokemonDetails]="pokemonDetails"
+    (pokemonMoveClicked)="onPokemonMoveClicked($event)"
+  ></app-pokemon-details>
+</ng-container>
+<ng-template #loading>
+  <app-loading-spinner></app-loading-spinner>
+</ng-template>

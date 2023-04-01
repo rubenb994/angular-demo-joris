@@ -10,6 +10,7 @@ import { PokemonComponent } from './components/pokemon/pokemon.component';
 import { ItemsComponent } from './components/items/items.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PokemonDetailsComponent } from './components/pokemon-details/pokemon-details.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { PokemonDetailsComponent } from './components/pokemon-details/pokemon-de
     PokemonComponent,
     ItemsComponent,
     PokemonDetailsComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { delay, Observable } from 'rxjs';
 import { PokemonApiResult } from '../models/pokemon-api-result';
 import { PokemonDetails } from '../models/pokemon-details';
 

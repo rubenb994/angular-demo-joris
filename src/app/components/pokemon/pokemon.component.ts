@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs';
+import { finalize, map } from 'rxjs';
 import { Pokemon, PokemonApiResult } from 'src/app/models/pokemon-api-result';
 import { PokemonDetails } from 'src/app/models/pokemon-details';
 import { PokemonService } from 'src/app/services/pokemon.service';
@@ -13,6 +13,7 @@ export class PokemonComponent implements OnInit {
   pokemons: Pokemon[] = [];
   pokemonDetails: PokemonDetails;
   selectedPokemonName: string;
+  loadingPokemons = true;
 
   private apiResult: PokemonApiResult;
   constructor(private pokemonService: PokemonService) {}
@@ -20,16 +21,7 @@ export class PokemonComponent implements OnInit {
   ngOnInit(): void {
     this.pokemonService
       .getAll('https://pokeapi.co/api/v2/pokemon/')
-      .pipe(
-        map((apiResult) => {
-          for (let index = 0; index < apiResult.results.length; index++) {
-            apiResult.results[
-              index
-            ].name = `Joris - ${apiResult.results[index].name}`;
-          }
-          return apiResult;
-        })
-      )
+      .pipe(finalize(() => (this.loadingPokemons = false)))
       .subscribe({
         next: (apiResult) => {
           this.apiResult = apiResult;
@@ -39,12 +31,16 @@ export class PokemonComponent implements OnInit {
   }
 
   onClickGetNextPage(): void {
-    this.pokemonService.getAll(this.apiResult.next).subscribe({
-      next: (apiResult) => {
-        this.apiResult = apiResult;
-        this.pokemons.push(...apiResult.results);
-      },
-    });
+    this.loadingPokemons = true;
+    this.pokemonService
+      .getAll(this.apiResult.next)
+      .pipe(finalize(() => (this.loadingPokemons = false)))
+      .subscribe({
+        next: (apiResult) => {
+          this.apiResult = apiResult;
+          this.pokemons.push(...apiResult.results);
+        },
+      });
   }
 
   onClickGetPokemonDetails(pokemonName: string): void {
