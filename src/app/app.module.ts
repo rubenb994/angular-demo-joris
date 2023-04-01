@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { PokemonComponent } from './components/pokemon/pokemon.component';
 import { ItemsComponent } from './components/items/items.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PokemonDetailsComponent } from './components/pokemon-details/pokemon-details.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
     FooterComponent,
     PokemonComponent,
     ItemsComponent,
+    PokemonDetailsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],

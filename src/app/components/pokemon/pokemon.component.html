@@ -1,19 +1,14 @@
-<p>pokemon works!</p>
+<button (click)="onClickGetNextPage()">Get next page</button>
 
-<p>With Async pipe</p>
-<ul>
-  <ng-container *ngFor="let pokemon of pokemon$ | async">
-    <li>
-      {{ pokemon.name }}
-    </li>
-  </ng-container>
-</ul>
-
-<p>With subscribe</p>
-<ul>
+<ul class="pokemons-list">
   <ng-container *ngFor="let pokemon of pokemons">
-    <li>
+    <li (click)="onClickGetPokemonDetails(pokemon.name)">
       {{ pokemon.name }}
     </li>
   </ng-container>
 </ul>
+
+<app-pokemon-details
+  [pokemonDetails]="pokemonDetails"
+  (pokemonMoveClicked)="onPokemonMoveClicked($event)"
+></app-pokemon-details>

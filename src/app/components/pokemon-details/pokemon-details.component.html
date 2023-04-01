@@ -1,0 +1,10 @@
+<div class="pokemon-details" *ngIf="pokemonDetails">
+  <h2>Pokemon details</h2>
+  <div>{{ pokemonDetails.name }}</div>
+  <div>{{ pokemonDetails.height }}</div>
+  <ul *ngFor="let move of pokemonDetails.moves">
+    <li (click)="onClickMoveName(move.move.name)">
+      {{ move.move.name }}
+    </li>
+  </ul>
+</div>
