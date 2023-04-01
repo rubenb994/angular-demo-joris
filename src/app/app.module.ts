@@ -8,10 +8,17 @@ import { FooterComponent } from './components/footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { PokemonComponent } from './components/pokemon/pokemon.component';
 import { ItemsComponent } from './components/items/items.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, FooterComponent, PokemonComponent, ItemsComponent],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    FooterComponent,
+    PokemonComponent,
+    ItemsComponent,
+  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })

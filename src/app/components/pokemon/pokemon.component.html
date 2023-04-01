@@ -1,1 +1,19 @@
 <p>pokemon works!</p>
+
+<p>With Async pipe</p>
+<ul>
+  <ng-container *ngFor="let pokemon of pokemon$ | async">
+    <li>
+      {{ pokemon.name }}
+    </li>
+  </ng-container>
+</ul>
+
+<p>With subscribe</p>
+<ul>
+  <ng-container *ngFor="let pokemon of pokemons">
+    <li>
+      {{ pokemon.name }}
+    </li>
+  </ng-container>
+</ul>
